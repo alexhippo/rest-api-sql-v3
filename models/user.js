@@ -4,21 +4,57 @@ module.exports = (sequelize) => {
   class User extends Model { }
   User.init({
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true,
       autoIncrement: true
     },
     firstName: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'A first name is required'
+        },
+        notEmpty: {
+          msg: 'Please provide a first name.'
+        }
+      }
     },
     lastName: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'A last name is required'
+        },
+        notEmpty: {
+          msg: 'Please provide a last name.'
+        }
+      }
     },
     emailAddress: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'An email address is required'
+        },
+        notEmpty: {
+          msg: 'Please provide an email address.'
+        }
+      }
     },
     password: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'A password is required'
+        },
+        notEmpty: {
+          msg: 'Please provide a password.'
+        }
+      }
     }
   }, { sequelize });
 
