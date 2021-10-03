@@ -35,9 +35,9 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
 // Create a course
 router.post('/courses', asyncHandler(async (req, res) => {
   try {
-    await Course.create(req.body);
+    const newCourse = await Course.create(req.body);
     res.status(201)
-      .location('/')
+      .location(`/courses/${newCourse.dataValues.id}`)
       .end();
   } catch (error) {
     console.log('ERROR: ', error.name);
