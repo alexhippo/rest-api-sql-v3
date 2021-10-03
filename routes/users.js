@@ -15,12 +15,12 @@ function asyncHandler(cb) {
 }
 
 // Return the list of users
-// @todo: Set the location header to '/'
 router.get('/users', asyncHandler(async (req, res) => {
   let users = await User.findAll();
   res.json(users);
 }));
 
+// Create a user
 router.post('/users', asyncHandler(async (req, res) => {
   try {
     await User.create(req.body);
