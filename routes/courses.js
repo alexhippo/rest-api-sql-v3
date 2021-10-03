@@ -50,5 +50,27 @@ router.post('/courses', asyncHandler(async (req, res) => {
   }
 }));
 
+// Update an existing course
+router.put("/courses/:id", asyncHandler(async (req, res, next) => {
+  let course;
+  try {
+    course = await Course.findByPk(req.params.id);
+    if (course) {
+      await course.update(req.body);
+      res.status(204).end();
+    } else {
+      const err = new Error(`Sorry! We couldn't find the course you were trying to update.`);
+      res.status(404).json({ errors });
+    }
+  } catch (error) {
+    if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+      const errors = error.errors.map(err => err.message);
+      res.status(400).json({ errors });
+    } else {
+      throw error;
+    }
+  }
+}));
+
 module.exports = router;
 
