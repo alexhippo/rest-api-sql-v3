@@ -27,7 +27,7 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
     res.json(course);
   } else {
     res.json({
-      "message": "Sorry, we couldn't find the course you were looking for."
+      "error": "Sorry, we couldn't find the course you were looking for."
     });
   }
 }));
@@ -59,8 +59,8 @@ router.put("/courses/:id", asyncHandler(async (req, res, next) => {
       await course.update(req.body);
       res.status(204).end();
     } else {
-      const err = new Error(`Sorry! We couldn't find the course you were trying to update.`);
-      res.status(404).json({ errors });
+      const err = new Error(`Course Not Found`);
+      res.status(404).json({ error: err.message });
     }
   } catch (error) {
     if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
@@ -69,6 +69,18 @@ router.put("/courses/:id", asyncHandler(async (req, res, next) => {
     } else {
       throw error;
     }
+  }
+}));
+
+// Delete an existing course
+router.delete("/courses/:id", asyncHandler(async (req, res, next) => {
+  const course = await Course.findByPk(req.params.id);
+  if (course) {
+    await course.destroy();
+    res.status(204).end();
+  } else {
+    const err = new Error(`Course Not Found`);
+    res.status(404).json({ error: err.message });
   }
 }));
 
