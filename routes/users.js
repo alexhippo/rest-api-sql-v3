@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const User = require('../models').User;
+const { authenticateUser } = require('../middleware/auth-user');
 
 function asyncHandler(cb) {
   return async (req, res, next) => {
@@ -15,7 +16,9 @@ function asyncHandler(cb) {
 }
 
 // Return the list of users
-router.get('/users', asyncHandler(async (req, res) => {
+router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
+  const user = req.currentUser;
+  console.log(user);
   let users = await User.findAll();
   res.json(users);
 }));
