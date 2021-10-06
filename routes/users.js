@@ -23,12 +23,9 @@ router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
     where: {
       emailAddress: user.emailAddress
     },
-    attributes: [
-      'id',
-      'firstName',
-      'lastName',
-      'emailAddress'
-    ]
+    attributes: {
+      exclude: ['password', 'createdAt', 'updatedAt']
+    }
   });
 
   res.json(userResult);

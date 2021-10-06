@@ -17,7 +17,11 @@ function asyncHandler(cb) {
 
 // Return all courses
 router.get('/courses', asyncHandler(async (req, res) => {
-  let courses = await Course.findAll();
+  let courses = await Course.findAll({
+    attributes: {
+      exclude: ['createdAt', 'updatedAt']
+    }
+  });
   res.json(courses);
 }));
 
