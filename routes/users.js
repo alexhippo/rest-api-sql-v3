@@ -18,9 +18,14 @@ function asyncHandler(cb) {
 // Return the list of users
 router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
   const user = req.currentUser;
-  console.log(user);
-  let users = await User.findAll();
-  res.json(users);
+
+  const userResult = await User.findOne({
+    where: {
+      emailAddress: user.emailAddress
+    }
+  });
+
+  res.json(userResult);
 }));
 
 // Create a user
