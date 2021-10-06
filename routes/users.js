@@ -22,7 +22,13 @@ router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
   const userResult = await User.findOne({
     where: {
       emailAddress: user.emailAddress
-    }
+    },
+    attributes: [
+      'id',
+      'firstName',
+      'lastName',
+      'emailAddress'
+    ]
   });
 
   res.json(userResult);
