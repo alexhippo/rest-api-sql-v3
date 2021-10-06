@@ -44,6 +44,7 @@ module.exports = (sequelize) => {
     Course.belongsTo(models.User, {
       foreignKey: {
         fieldName: 'id',
+        allowNull: false
       }
     });
   }
