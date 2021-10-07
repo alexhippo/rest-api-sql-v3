@@ -63,7 +63,7 @@ module.exports = (sequelize) => {
         }
       },
       set(val) {
-        if (val.length > 8 || val.length < 20) {
+        if (val.length >= 8 && val.length <= 20) {
           const hashedPassword = bcrypt.hashSync(val, 10);
           this.setDataValue('password', hashedPassword);
         } else {
