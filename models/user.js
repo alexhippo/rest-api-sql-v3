@@ -1,7 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
-// @todo - Deal with multiple validation errors at once?
 module.exports = (sequelize) => {
   class User extends Model { }
   User.init({

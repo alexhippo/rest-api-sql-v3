@@ -2,7 +2,7 @@ const auth = require('basic-auth');
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 
-/** From Treehouse Workshop REST API Authentication with Express */
+/** Based on Treehouse Workshop REST API Authentication with Express */
 exports.authenticateUser = async (req, res, next) => {
   let message;
 
@@ -16,8 +16,7 @@ exports.authenticateUser = async (req, res, next) => {
     });
 
     if (user) {
-      const authenticated = bcrypt
-        .compareSync(credentials.pass, user.password);
+      const authenticated = bcrypt.compareSync(credentials.pass, user.password);
       if (authenticated) {
         console.log(`Authentication successful for user ${credentials.name}`);
         req.currentUser = user;
