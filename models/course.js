@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
   class Course extends Model { }
   Course.init({
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
