@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const Course = require('../models').Course;
+const User = require('../models').User;
 const { authenticateUser } = require('../middleware/auth-user');
 const { asyncHandler } = require('../middleware/async-handler');
 
@@ -10,6 +11,12 @@ router.get('/courses', asyncHandler(async (req, res) => {
   let courses = await Course.findAll({
     attributes: {
       exclude: ['createdAt', 'updatedAt']
+    },
+    include: {
+      model: User,
+      attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt']
+      }
     }
   });
   res.json(courses);
@@ -20,6 +27,12 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
   const course = await Course.findByPk(req.params.id, {
     attributes: {
       exclude: ['createdAt', 'updatedAt']
+    },
+    include: {
+      model: User,
+      attributes: {
+        exclude: ['password', 'createdAt', 'updatedAt']
+      }
     }
   });
   if (course) {
