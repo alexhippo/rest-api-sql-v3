@@ -15,7 +15,7 @@ This project was created as part of the [Treehouse Full Stack Javascript Techdeg
 
 ## Getting started
 ### Please note
-This project runs and has been tested with `sqlite3` version `^4.2.0`.
+This project runs and has been tested with `sqlite3` version `5.0.2`.
 
 ### Downloading
 Click on the 'Code' button and clone this project via command line or select 'Download Zip.'
